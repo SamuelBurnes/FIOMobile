@@ -9,7 +9,7 @@ class MobileFIO
 		if(url.slice(0, 35) == "https://apex.prosperousuniverse.com")
 		{
 			console.log(localStorage.getItem('localTest'));
-			localStorage.setItem('localTest', Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5));
+			//localStorage.setItem('localTest', Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5));
 			console.log(localStorage.getItem('localTest'));
 		}
 		else
