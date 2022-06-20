@@ -11,8 +11,16 @@ class MobileFIO
 {
 	loadInitial()
 	{
-		console.log(window.location.href);
-		window.setTimeout(() => this.loadInitial(), 1000);
+		const url = window.location.href;
+		if(url.slice(0, 35) == "https://apex.prosperousuniverse.com")
+		{
+			console.log("PrUN Detected");
+		}
+		else
+		{
+			console.log("No PrUN");
+			window.setTimeout(() => this.loadInitial(), 1000);
+		}
 	}
 }
 
@@ -24,6 +32,5 @@ try
 }
 catch(error)
 {
-	console.log("Mobile FIO Error");
 	console.error(error);
 }
