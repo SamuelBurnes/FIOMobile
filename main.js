@@ -1,9 +1,9 @@
 var fnar_url = "https://rest.fnar.net";
 var fio_url = "https://fio.fnar.net";
+var apikey = null;
 
 class MobileFIO
 {
-	var apikey;
 	loadInitial()
 	{
 		const url = window.location.href;
@@ -19,7 +19,7 @@ class MobileFIO
 	
 	authenticate()
 	{
-		this.apikey = localStorage.getItem("fioinfo");
+		apikey = localStorage.getItem("fioinfo");
 		if(apikey == null || apikey == undefined)
 		{
 			// Wait for authenticate buffer
