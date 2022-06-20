@@ -18,10 +18,12 @@ class MobileFIO
 
 try
 {
+	console.log("Start Mobile FIO");
 	const runner = new MobileFIO();
 	runner.loadInitial();
 }
 catch(error)
 {
+	console.log("Mobile FIO Error");
 	console.error(error);
 }
