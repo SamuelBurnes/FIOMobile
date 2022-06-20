@@ -1,12 +1,6 @@
 var fnar_url = "https://rest.fnar.net";
 var fio_url = "https://fio.fnar.net";
 
-var data = {
-	"UserName": "PiBoy314",
-	"Password": "prunpassword"
-};
-
-
 class MobileFIO
 {
 	loadInitial()
@@ -14,11 +8,13 @@ class MobileFIO
 		const url = window.location.href;
 		if(url.slice(0, 35) == "https://apex.prosperousuniverse.com")
 		{
-			console.log("PrUN Detected");
+			console.log(localStorage.getItem('localTest');
+			localStorage.setItem('localTest', Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5));
+			console.log(localStorage.getItem('localTest');
 		}
 		else
 		{
-			console.log("No PrUN");
+			console.log(localStorage.getItem('localTest');
 			window.setTimeout(() => this.loadInitial(), 1000);
 		}
 	}
@@ -26,7 +22,7 @@ class MobileFIO
 
 try
 {
-	console.log("Start Mobile FIO");
+	console.log("Mobile FIO Loaded");
 	const runner = new MobileFIO();
 	runner.loadInitial();
 }
