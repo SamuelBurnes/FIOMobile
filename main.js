@@ -27,6 +27,7 @@ class MobileFIO
 			try
 			{
 				const buffer = container.firstChild.firstChild.children[1].children[1].firstChild.firstChild;
+				console.log(buffer.firstChild.firstChild.textContent.toUpperCase());
 				if(buffer.firstChild.firstChild.textContent.toUpperCase().includes(" / XIT SETTINGS"))
 				{
 					console.log("Settings Screen");
@@ -36,7 +37,7 @@ class MobileFIO
 					tile.appendChild(apiinput);
 					
 				}
-			} catch(error){}
+			} catch(error){console.error(error);}
 		}
 	}
 }
