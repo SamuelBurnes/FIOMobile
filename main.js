@@ -9,7 +9,7 @@ class MobileFIO
 		const url = window.location.href;
 		if(url.slice(0, 35) == "https://apex.prosperousuniverse.com")
 		{
-			authenticate();
+			this.authenticate();
 		}
 		else
 		{
@@ -30,6 +30,11 @@ class MobileFIO
 				if(buffer.firstChild.firstChild.textContent.toUpperCase().includes(" / XIT SETTINGS"))
 				{
 					console.log("Settings Screen");
+					const tile = buffer.children[1].firstChild;
+					tile.style.background = "#20314E";
+					const apiinput = document.createElement("input");
+					tile.appendChild(apiinput);
+					
 				}
 			} catch(error){}
 		}
