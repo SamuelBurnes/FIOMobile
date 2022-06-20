@@ -33,11 +33,19 @@ class MobileFIO
 					console.log("Settings Screen");
 					const tile = buffer.children[1].firstChild;
 					tile.style.background = "#20314E";
-					const apiinput = document.createElement("input");
-					tile.appendChild(apiinput);
-					
+					var apiinput;
+					if(tile.children.length == 0)
+					{
+						apiinput = document.createElement("input");
+						tile.appendChild(apiinput);
+					}
+					else
+					{
+						apiinput = tile.firstChild;
+					}
 				}
 			} catch(error){console.error(error);}
+			if(apikey == null || apikey == undefined){window.setTimeout(() => this.authenticate(), 1000);}
 		}
 	}
 }
