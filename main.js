@@ -37,7 +37,7 @@ class MobileFIO
 		try
 		{
 			const buffer = container.firstChild.firstChild.children[1].children[1].firstChild.firstChild;
-			if(buffer.firstChild.firstChild.textContent.toUpperCase().includes(" / XIT SETTINGS"))
+			if(buffer.firstChild.firstChild.textContent.toUpperCase().includes(" / XIT FIO"))
 			{
 				const tile = buffer.children[1].firstChild;
 				tile.style.background = "#20314E";
@@ -60,7 +60,7 @@ class MobileFIO
 					nameinput.style.marginBottom = "5px";
 					nameinput.addEventListener("input", function(){
 						fiodata[0] = nameinput.value || "";
-						localStorage.set("fioinfo", JSON.stringify(fiodata));
+						localStorage.setItem("fioinfo", JSON.stringify(fiodata));
 					});
 					if(username != null && username != undefined){nameinput.value = username;}
 					tile.appendChild(nameinput);	
@@ -75,7 +75,7 @@ class MobileFIO
 					apiinput.style.padding = "2px";
 					apiinput.addEventListener("input", function(){
 						fiodata[1] = apiinput.value || "";
-						localStorage.set("fioinfo", JSON.stringify(fiodata));
+						localStorage.setItem("fioinfo", JSON.stringify(fiodata));
 					});
 					if(apikey != null && apikey != undefined){apiinput.value = apikey;}
 					tile.appendChild(apiinput);
