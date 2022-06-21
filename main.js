@@ -33,15 +33,30 @@ class MobileFIO
 					console.log("Settings Screen");
 					const tile = buffer.children[1].firstChild;
 					tile.style.background = "#20314E";
+					tile.style.position = "static";
+					var namelabel;
+					var nameinput;
 					var apiinput;
+					var apilabel;
 					if(tile.children.length == 0)
 					{
+						namelabel = document.createElement("label");
+						namelabel.textContent = "FIO Username";
+						tile.appendChild(namelabel);
+						nameinput = document.createElement("input");
+						tile.appendChild(nameinput);	
+						apilabel = document.createElement("label");
+						apilabel.textContent = "FIO API Key";
+						tile.appendChild(apilabel);
 						apiinput = document.createElement("input");
 						tile.appendChild(apiinput);
 					}
 					else
 					{
-						apiinput = tile.firstChild;
+						namelabel = tile.children[0];
+						nameinput = tile.children[1];
+						apilabel = tile.children[2];
+						apiinput = tile.children[3];
 					}
 				}
 			} catch(error){console.error(error);}
