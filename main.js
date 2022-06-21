@@ -42,13 +42,19 @@ class MobileFIO
 					{
 						namelabel = document.createElement("label");
 						namelabel.textContent = "FIO Username";
+						namelabel.style.fontSize = "30px";
 						tile.appendChild(namelabel);
 						nameinput = document.createElement("input");
+						nameinput.style.backgroundColor = "#42361d";
+						nameinput.style.borderBottom = "1px solid #8d6411";
 						tile.appendChild(nameinput);	
 						apilabel = document.createElement("label");
 						apilabel.textContent = "FIO API Key";
+						apilabel.style.fontSize = "30px";
 						tile.appendChild(apilabel);
 						apiinput = document.createElement("input");
+						apiinput.style.backgroundColor = "#42361d";
+						apiinput.style.borderBottom = "1px solid #8d6411";
 						tile.appendChild(apiinput);
 					}
 					else
