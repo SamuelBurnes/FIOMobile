@@ -21,8 +21,16 @@ class MobileFIO
 	authenticate()
 	{
 		var fiodata = JSON.parse(localStorage.getItem("fioinfo"));
-		username = fiodata[0];
-		apikey = fiodata[1];
+		if(fiodata != null)
+		{
+			username = fiodata[0];
+			apikey = fiodata[1];
+		}
+		else
+		{
+			username = null;
+			apikey = null;
+		}
 		// Wait for authenticate buffer
 		const container = document.getElementById("container");
 		try
