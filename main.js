@@ -30,6 +30,7 @@ class MobileFIO
 		{
 			username = null;
 			apikey = null;
+			fiodata = [null, null];
 		}
 		// Wait for authenticate buffer
 		const container = document.getElementById("container");
@@ -58,7 +59,7 @@ class MobileFIO
 					nameinput.style.padding = "2px";
 					nameinput.style.marginBottom = "5px";
 					nameinput.addEventListener("input", function(){
-						fiodata[0] = nameinput.value;
+						fiodata[0] = nameinput.value || "";
 						localStorage.set("fioinfo", JSON.stringify(fiodata));
 					});
 					if(username != null && username != undefined){nameinput.value = username;}
@@ -73,7 +74,7 @@ class MobileFIO
 					apiinput.style.borderBottom = "1px solid #8d6411";
 					apiinput.style.padding = "2px";
 					apiinput.addEventListener("input", function(){
-						fiodata[1] = apiinput.value;
+						fiodata[1] = apiinput.value || "";
 						localStorage.set("fioinfo", JSON.stringify(fiodata));
 					});
 					if(apikey != null && apikey != undefined){apiinput.value = apikey;}
