@@ -30,6 +30,8 @@ class MobileFIO
 			apikey = fiodata[1];
 			if(!listenerCreated)
 			{
+				console.log("Connecting...");
+				console.log(fiodata);
 				this.connect();
 				listenerCreated = true;
 			}
@@ -96,7 +98,7 @@ class MobileFIO
 					apiinput = tile.children[3];
 				}
 			}
-		} catch(error){console.error(error);}
+		} catch(error){}
 		window.setTimeout(() => this.authenticate(), 1000);
 	}
 
@@ -131,6 +133,7 @@ class MobileFIO
 			{			
 				try
 				{
+					console.log(event);
 					ProcessMessage(event);
 				}      
 				catch(error)
@@ -152,7 +155,7 @@ class MobileFIO
 			return wsSend(this, arguments);
 		};
 
-
+		console.log("Finished Connection Method");
 	}
 }
 
