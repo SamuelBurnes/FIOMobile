@@ -17,7 +17,7 @@ class MobileFIO
 		}
 		else
 		{
-			window.setTimeout(() => this.loadInitial(), 1000);
+			window.setTimeout(() => this.loadInitial(), 100);
 		}
 	}
 	
