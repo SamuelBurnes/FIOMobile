@@ -5,7 +5,6 @@ var username = null;
 var listenerCreated = false;
 var fnar_is_admin = false;
 var fnar_auth_token = "";
-var port = null;
 
 class MobileFIO
 {
@@ -152,12 +151,6 @@ class MobileFIO
 		{
 			return wsSend(this, arguments);
 		};
-
-		port = chrome.runtime.connect(chrome.runtime.id);
-		port.onDisconnect.addListener(function()
-		{
-			console.warn("FIO: " + chrome.runtime.lastError);
-		})
 
 
 	}
@@ -328,7 +321,6 @@ function ProcessMessage(event){
 
             if (transmitted_events.includes(msgType))
             {
-                StartTransmission();
                 switch(msgType)
 				{
 					case "WORLD_REACTOR_DATA":
@@ -525,30 +517,12 @@ function ProcessMessage(event){
 						send_fnar_xhttp_request(fnar_url + "/currency", eventdata);
 						break;
 				}
-                EndTransmission();
             }
             else
             {
-                //console.log("Uninterested in action message: " + eventdata.payload.message.messageType);
+                console.log("Uninterested in action message: " + eventdata.payload.message.messageType);
             }
         }
-    }
-}
-
-function StartTransmission(){
-    transmissionCounter++;
-    if(transmissionCounter == 1){
-        transmissionCanRemoveBadge = false;
-        SendMessage("DisplayBadge");
-        setTimeout(CheckRemovalofBade, 1000);
-    }
-}
-
-function SendMessage(command){
-    try {
-        port.postMessage({command: command});
-    } catch (error) {
-        console.warn("FIO: " + error);
     }
 }
 
