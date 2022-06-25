@@ -108,8 +108,9 @@ class MobileFIO
 		var callWebSocket = OrigWebSocket.apply.bind(OrigWebSocket);
 		var wsAddListener = OrigWebSocket.prototype.addEventListener;
 		wsAddListener = wsAddListener.call.bind(wsAddListener);
-		window.WebSocket = function WebSocket(url, protocols)
-		{	
+		window.WebSocket = function(url, protocols)
+		{
+			console.log("Inside Method...");
 			var ws;
 			if (!(this instanceof WebSocket))
 			{
