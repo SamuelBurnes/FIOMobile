@@ -10,13 +10,7 @@
 // @connect      *
 // ==/UserScript==
 
-// fnar account for pushing to FIO bot
-// 1) Fill in your username and password below
-var fnar_username = "USERNAME";
-const fnar_password = "PASSWORD";
-// END CONFIGURATION SETTINGS
-
-//const fnar_url = "http://localhost:4443";
+var fnar_username = "";
 const fnar_url = "https://rest.fnar.net";
 
 //
@@ -30,10 +24,16 @@ function fnar_login_then(turl, tdata)
 {
     console.log("Attempting to sign in.");
 	const data = JSON.parse(localStorage.getItem("fioinfo"));
-	fnar_username = data[0];
-	fnar_auth_token = data[1];
-	console.log(data);
-	console.log("Signed in.");
+	if(data != null){
+		fnar_username = data[0];
+		fnar_auth_token = data[1];
+		console.log("Signed in.");
+	}
+	else
+	{
+		console.log("Failed to sign in.");
+	}
+	
 	fnar_do_send_xhttp_request(turl, tdata);
 }
 
@@ -146,9 +146,9 @@ let OrigWebSocket = window.WebSocket;
 let callWebSocket = OrigWebSocket.apply.bind(OrigWebSocket);
 let wsAddListener = OrigWebSocket.prototype.addEventListener;
 wsAddListener = wsAddListener.call.bind(wsAddListener);
-window.WebSocket = function WebSocket(url, protocols)
+
+window.WebSocket = function(url, protocols)
 {
-	console.log("We're inside!");
 	let ws;
 	if (!(this instanceof WebSocket))
 	{
@@ -169,16 +169,31 @@ window.WebSocket = function WebSocket(url, protocols)
 	}
 
 	wsAddListener(ws, 'message', function(event)
-	{
+	{console.log("That's weird, this shouldn't run...");});
+	return ws;
+}.bind();
+window.WebSocket.prototype = OrigWebSocket.prototype;
+window.WebSocket.prototype.constructor = window.WebSocket;
+let wsSend = OrigWebSocket.prototype.send;
+wsSend = wsSend.apply.bind(wsSend);
+OrigWebSocket.prototype.send = function(data)
+{
+	// TODO: Do something with the sent data if you wish.
+	//console.log("Sent message");
+	
+	try{
+		if(!this.eventListenerAdded)
+		{
+			console.log("Listener Added");
+			this.addEventListener('message', function(event){
 		let outmsg = '';
 		// Do stuff with event.data (received data).
 		let re_event = /^[0-9:\s]*(?<event>\[\s*"event".*\])[\s0-9:\.]*/m;
 		let result = event.data.match(re_event);
 		if (result && result.groups && result.groups.event)
 		{
-			console.log("Event found");
+			//console.log("Event found");
 			let eventdata = JSON.parse(result.groups.event)[1];
-			console.log(eventdata);
 			if ((eventdata.messageType === "ACTION_COMPLETED" && eventdata.payload.message) || (eventdata.messageType === "PRODUCTION_PRODUCTION_LINE_UPDATED" && eventdata.payload) || (eventdata.messageType === "PRODUCTION_PRODUCTION_LINE_REMOVED" && eventdata.payload) || (eventdata.messageType === "PRODUCTION_ORDER_ADDED" && eventdata.payload) ||(eventdata.messageType === "PRODUCTION_ORDER_UPDATED" && eventdata.payload) || (eventdata.messageType === "WORKFORCE_WORKFORCES_UPDATED" && eventdata.payload) || (eventdata.messageType === "SITE_PLATFORM_BUILT" && eventdata.payload) || (eventdata.messageType === "SITE_SECTION_DEMOLISH" && eventdata.payload) || (eventdata.messageType === "STORAGE_CHANGE" && eventdata.payload) || (eventdata.messageType === "CHANNEL_MESSAGE_ADDED") || (eventdata.messageType === "CHANNEL_MESSAGE_DELETED") || (eventdata.messageType === "CHANNEL_USER_JOINED") || (eventdata.messageType === "CHANNEL_USER_LEFT") || (eventdata.messageType === "CONTRACTS_CONTRACT" && eventdata.payload) || (eventdata.messageType === "COMEX_TRADER_ORDER_UPDATED" && eventdata.payload) || (eventdata.messageType === "COMEX_TRADER_ORDER_ADDED" && eventdata.payload))
 			{
 				if (eventdata.messageType === "CHANNEL_MESSAGE_ADDED")
@@ -436,22 +451,15 @@ window.WebSocket = function WebSocket(url, protocols)
 				}
 				else
 				{
-					console.log("Uninterested in action message: " + eventdata.payload.message.messageType);
+					//console.log("Uninterested in action message: " + eventdata.payload.message.messageType);
 				}
 			}
 		}
 	});
-	return ws;
-}.bind();
-window.WebSocket.prototype = OrigWebSocket.prototype;
-window.WebSocket.prototype.constructor = window.WebSocket;
-
-let wsSend = OrigWebSocket.prototype.send;
-wsSend = wsSend.apply.bind(wsSend);
-OrigWebSocket.prototype.send = function(data)
-{
-	// TODO: Do something with the sent data if you wish.
-	console.log("Sent message");
+			this.eventListenerAdded = true;
+		}
+	} catch(error){console.error(error);}
 	return wsSend(this, arguments);
+	
 };
 
