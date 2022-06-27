@@ -139,7 +139,7 @@ let transmitted_events = [
 	'WORLD_MATERIAL_CATEGORIES',
 	'WORLD_REACTOR_DATA'
 ];
-
+console.log("Mobile FIO Running");
 let validChannelIds = [];
 
 let OrigWebSocket = window.WebSocket;
@@ -436,7 +436,7 @@ window.WebSocket = function WebSocket(url, protocols)
 				}
 				else
 				{
-					// console.log("Uninterested in action message: " + eventdata.payload.message.messageType);
+					console.log("Uninterested in action message: " + eventdata.payload.message.messageType);
 				}
 			}
 		}
@@ -451,7 +451,7 @@ wsSend = wsSend.apply.bind(wsSend);
 OrigWebSocket.prototype.send = function(data)
 {
 	// TODO: Do something with the sent data if you wish.
-	// console.log("Sent message");
+	console.log("Sent message");
 	return wsSend(this, arguments);
 };
 
