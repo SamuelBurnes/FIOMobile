@@ -1,3 +1,15 @@
+// ==UserScript==
+// @name         Mobile FIO REST
+// @namespace    https://apex.prosperousuniverse.com/
+// @version      1.0
+// @description  REST Database Population
+// @author       You
+// @match        https://apex.prosperousuniverse.com/
+// @grant        none
+// @run-at       document-start
+// @connect      *
+// ==/UserScript==
+
 var fnar_url = "https://rest.fnar.net";
 var fio_url = "https://fio.fnar.net";
 var apikey = null;
@@ -7,20 +19,7 @@ var fnar_is_admin = false;
 var fnar_auth_token = "";
 
 class MobileFIO
-{
-	loadInitial()
-	{
-		const url = window.location.href;
-		if(url.slice(0, 35) == "https://apex.prosperousuniverse.com")
-		{
-			this.authenticate();
-		}
-		else
-		{
-			window.setTimeout(() => this.loadInitial(), 100);
-		}
-	}
-	
+{	
 	authenticate()
 	{
 		var fiodata = JSON.parse(localStorage.getItem("fioinfo"));
@@ -534,7 +533,7 @@ try
 {
 	console.log("Mobile FIO Loaded");
 	const runner = new MobileFIO();
-	runner.loadInitial();
+	runner.authenticate();
 }
 catch(error)
 {
