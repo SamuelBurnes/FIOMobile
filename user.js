@@ -12,7 +12,7 @@
 
 // fnar account for pushing to FIO bot
 // 1) Fill in your username and password below
-const fnar_username = "USERNAME";
+var fnar_username = "USERNAME";
 const fnar_password = "PASSWORD";
 // END CONFIGURATION SETTINGS
 
@@ -28,45 +28,13 @@ let fnar_is_admin = false;
 
 function fnar_login_then(turl, tdata)
 {
-    if (fnar_known_auth_failed)
-    {
-        return;
-    }
-
-    let data = {
-        "UserName": fnar_username,
-        "Password": fnar_password
-    };
-
-    const url = fnar_url + "/auth/login";
-    let fnarhttp = new XMLHttpRequest();
-
-    fnarhttp.onreadystatechange = function()
-    {
-        if (this.readyState === XMLHttpRequest.DONE)
-        {
-            let status = this.status;
-            if (status === 0 || (status >= 200 && status < 400))
-            {
-                // The request has been completed successfully
-                let json = JSON.parse(this.response);
-                fnar_is_admin = json.IsAdministrator;
-                fnar_auth_token = json.AuthToken;
-                fnar_do_send_xhttp_request(turl, tdata);
-                console.log("Logged in");
-            }
-            else if (status === 401)
-            {
-                fnar_known_auth_failed = true;
-                alert("Authentication to FIO failed.  Check your username & password.");
-            }
-        }
-    };
-    fnarhttp.withCredentials = false;
-    fnarhttp.open("POST", url, true);
-    fnarhttp.setRequestHeader("Content-type", "application/json");
-    fnarhttp.send(JSON.stringify(data));
     console.log("Attempting to sign in.");
+	const data = JSON.parse(localStorage.getItem("fioinfo"));
+	fnar_username = data[0];
+	fnar_auth_token = data[1];
+	console.log(data);
+	console.log("Signed in.");
+	fnar_do_send_xhttp_request(turl, tdata);
 }
 
 function fnar_renew_or_reauth_then(url, data)
